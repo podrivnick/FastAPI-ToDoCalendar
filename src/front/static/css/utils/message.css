@@ -1,0 +1,15 @@
+.notification__registration {
+    background-color: #4caf50; /* Зеленый цвет фона */
+    color: #0e0909; /* Цвет текста */
+    padding: 15px; /* Отступы внутри блока */
+    margin: 20px; /* Отступы снаружи блока */
+    border-radius: 5px; /* Скругленные углы */
+    text-align: center; /* Выравнивание текста по центру */
+    font-size: 16px; /* Размер текста */
+    display: none; /* Изначально скрываем блок */
+    font-weight: bold;
+}
+
+.hidden__registration {
+    display: none; /* Класс для скрытия элемента */
+}
