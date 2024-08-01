@@ -98,29 +98,33 @@
       </div>
     </header>
         {% include "message.html" %}
-    <div class="select_calendar__related">
-      <button class="btn btn-outline-primary_finalize" onclick="open_calendars()">For Who Assign Task</button>
-      <form action="#" class="select_calendar__of__user" method="post">
-        <div class="radiogroup">
-          <div class="wrapper">
-              <input class="state" type="radio" name="app" id="a" value="a" checked>
-              <label class="label" for="a">
-                <div class="indicator"></div>
-                <span class="text">{{ user.access_users }}</span>
-              </label>
-          </div>
-          <div class="wrapper">
-              <input class="state" type="radio" name="app" id="b" value="b">
-              <label class="label" for="b">
-                <div class="indicator"></div>
-                <span class="text">Other</span>
-              </label>
-          </div>
-        </div>
-      </form>
-    </div>
 
         {% if user %}
+        <div class="select_calendar__related">
+          <button class="btn btn-outline-primary_finalize" onclick="open_calendars()">For Who Assign Task</button>
+          <form class="select_calendar__of__user" action="#" method="post">
+            <div class="radiogroup">
+                <div class="wrapper">
+                      <input class="state" type="radio" name="calendar_user__access" id="calendar_related__{{ user.username }}" value="{{ user.username }}" checked>
+                      <label class="label" for="calendar_related__{{ user.username }}">
+                        <div class="indicator"></div>
+                        <span class="text">{{ user.username }}</span>
+                      </label>
+                  </div>
+                {% if db_calendar_access %}
+                    {% for access_user in db_calendar_access %}
+                      <div class="wrapper">
+                          <input class="state" type="radio" name="calendar_user__access" id="calendar_related__{{ access_user.username }}" value="{{ access_user.username }}">
+                          <label class="label" for="calendar_related__{{ access_user.username }}">
+                            <div class="indicator"></div>
+                            <span class="text">{{ access_user.username }}</span>
+                          </label>
+                      </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+          </form>
+        </div>
     <!-- modal popup add other calendar -->
             {% include "popups/modal_popup_addcalendar.html" %}
         {% else %}

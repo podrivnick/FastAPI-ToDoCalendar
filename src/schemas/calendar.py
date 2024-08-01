@@ -13,4 +13,8 @@ class CalendarSchema(BaseModel):
     due_date: datetime
 
 
+class CalendarAccessSchema(BaseModel):
+    user_id: int
+    accessible_user_id: int
+
 

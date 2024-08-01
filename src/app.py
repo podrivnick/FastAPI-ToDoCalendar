@@ -10,15 +10,18 @@ from api.routers import all_routers
 
 origins = [
     "http://localhost",
-    "http://localhost:8000",
+    "http://127.0.0.1",
     "http://127.0.0.1:8000",
-    '*'
+    "http://localhost:8000",
+    "http://localhost:3000",
+    "http://0.0.0.0:8000",
+    "*"
 ]
 
 
 def create_app() -> FastAPI:
     app = FastAPI(title="ToDoCalendar",
-                  debug=True
+                  debug=False
                   )
     # for local start
     # app.mount("/static", StaticFiles(directory="front/static"), name="static")

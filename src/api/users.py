@@ -1,16 +1,12 @@
-from models.users import User
-
-from utils.manager import get_user_manager
+from fastapi import APIRouter
+from fastapi_users import fastapi_users, FastAPIUsers
 
 from services.cookies_auth import auth_backend
-from fastapi_users import fastapi_users, FastAPIUsers
 from schemas.users import UserCreate
-from fastapi.templating import Jinja2Templates
-from fastapi import APIRouter
 from schemas.users import UserBase
+from models.users import User
+from utils.manager import get_user_manager
 
-
-templates = Jinja2Templates(directory="front/templates/html")
 
 router = APIRouter()
 
@@ -23,15 +19,14 @@ fastapi_users = FastAPIUsers[User, int](
 router.include_router(
     fastapi_users.get_register_router(UserBase, UserCreate),
     prefix="/registration",
-    tags=["registration"],
+    tags=["AUTH"],
 )
 
 router.include_router(
     fastapi_users.get_auth_router(auth_backend, requires_verification=False),
     prefix="/login/jwt",
-    tags=["login"],
+    tags=["AUTH"],
 )
 
 
 current_user = fastapi_users.current_user(optional=True)
-

@@ -5,9 +5,9 @@ from fastapi_users import BaseUserManager, IntegerIDMixin, exceptions, models, s
 
 from models.users import User, get_user_model
 
-from config import SECRET_KEY_USER_MANAGER
+from config import SECRET_KEY_AUTH
 
-SECRET = SECRET_KEY_USER_MANAGER
+SECRET = SECRET_KEY_AUTH
 
 
 class UserManager(IntegerIDMixin, BaseUserManager[User, int]):

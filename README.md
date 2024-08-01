@@ -70,7 +70,10 @@ ToDoProject/
         ├── database/              # Database module
         │   ├── __init__.py
         │   ├── database.py
+        ├── repositories/
+        │   ├── calendar_access.py
         ├── services/              # Services and business logic
+        │   ├── calendar_access.py
         │   ├── cookies_auth.py
         ├── schemas/               # Schemas to Models
         │   ├── calendar.py
@@ -80,6 +83,8 @@ ToDoProject/
         │   ├── calendar.py
         │   ├── users.py
         ├── utils/
+        │   ├── filtering_user.py
+        │   ├── repository.py 
         │   ├── manager.py         # Manager Authentication
         ├── api/                   # API routes
         │   ├── __init__.py
