@@ -2,8 +2,7 @@ from fastapi import APIRouter
 from fastapi_users import fastapi_users, FastAPIUsers
 
 from services.cookies_auth import auth_backend
-from schemas.users import UserCreate
-from schemas.users import UserBase
+from schemas.users import UserCreate, UserBase
 from models.users import User
 from utils.manager import get_user_manager
 

@@ -35,8 +35,5 @@ class UserRead(schemas.BaseUser[int]):
         from_attributes = True
 
 
-class CalendarAccess(BaseModel):
-    id: int
-    user_id: int
-    accessible_user_id: int
-
+class UserTokenSchema(BaseModel):
+    token: str

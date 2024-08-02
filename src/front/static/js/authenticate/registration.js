@@ -10,7 +10,7 @@ document.getElementById('form_register_user_').addEventListener('submit', async 
             delete jsonData.password2
             console.log(JSON.stringify(jsonData))
             try {
-                const response = await fetch('/registration/register', {
+                const response = await fetch(API_REGISTER, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

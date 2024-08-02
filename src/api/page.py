@@ -5,7 +5,7 @@ from database.database import get_async_session
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 
-from models.users import User, CalendarAccess
+from models.users import User
 from utils.filtering_user import FilteringUser
 
 from .users import current_user

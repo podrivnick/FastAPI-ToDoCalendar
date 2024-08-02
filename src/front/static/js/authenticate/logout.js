@@ -1,6 +1,6 @@
 document.getElementById('logout_link__').addEventListener('click', async function() {
     try {
-        const response = await fetch('/login/jwt/logout', {
+        const response = await fetch(API_LOGOUT, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

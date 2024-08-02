@@ -21,7 +21,7 @@ origins = [
 
 def create_app() -> FastAPI:
     app = FastAPI(title="ToDoCalendar",
-                  debug=False
+                  debug=True
                   )
     # for local start
     # app.mount("/static", StaticFiles(directory="front/static"), name="static")

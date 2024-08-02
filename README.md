@@ -27,6 +27,8 @@ ___
    ```
 
 2. Install all required packages in `Requirements` section.
+3. Set up environment variables:
+   - Create a `.env` file and fill it according to `.env.example`.
 
 ### Implemented Commands
 

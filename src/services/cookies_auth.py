@@ -8,8 +8,8 @@ SECRET = secret
 cookie_transport = CookieTransport(
     cookie_name="Calendar",
     cookie_max_age=3600,
-    cookie_secure=False,    # for save cookie at local host machine
-    cookie_samesite="Lax",  # for save cookie at local host machine
+    cookie_secure=False,    # for save cookie at local host machine and docker
+    cookie_samesite="Lax",  # for save cookie at local host machine and docker
 )
 
 

@@ -3,6 +3,6 @@
 __pycache__/
 .idea/
 /diogramm/
-/src/front/static/img/
+/src/front/static/img/*
 
-!/src/front/static/img/.gitkeep
+!src/front/static/img/.gitkeep

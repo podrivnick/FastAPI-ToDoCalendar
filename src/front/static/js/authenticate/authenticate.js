@@ -15,7 +15,7 @@ document.getElementById('form_login__users').addEventListener('submit', async fu
     formData.append('password', login_password);
 
     try {
-        const response = await fetch('/login/jwt/login', {
+        const response = await fetch(API_LOGIN, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
