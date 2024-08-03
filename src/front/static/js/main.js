@@ -15,7 +15,10 @@ const calendar = document.querySelector(".calendar"),
   addEventTitle = document.querySelector(".event-name "),
   addEventFrom = document.querySelector(".event-time-from "),
   addEventTo = document.querySelector(".event-time-to "),
-  addEventSubmit = document.querySelector(".add-event-btn ");
+  addEventSubmit = document.querySelector(".add-event-btn "),
+  addEventTask = document.getElementById("eventIDTasks"),
+  addEventPriority = document.getElementById("eventIDPriority");
+  inputCurrentUser = document.getElementById("currentUserAssignedTask");
 
 let today = new Date();
 let activeDay;
@@ -216,7 +219,7 @@ dateInput.addEventListener("input", (e) => {
 gotoBtn.addEventListener("click", gotoDate);
 
 function gotoDate() {
-  console.log("here");
+  // console.log("here");
   const dateArr = dateInput.value.split("/");
   if (dateArr.length === 2) {
     if (dateArr[0] > 0 && dateArr[0] < 13 && dateArr[1].length === 4) {
@@ -288,6 +291,14 @@ addEventTitle.addEventListener("input", (e) => {
   addEventTitle.value = addEventTitle.value.slice(0, 60);
 });
 
+addEventTask.addEventListener("input", (e) => {
+  addEventTask.value = addEventTask.value.slice(0, 120);
+});
+
+addEventPriority.addEventListener("input", (e) => {
+  addEventPriority.value = addEventPriority.value.slice(0, 10);
+});
+
 function defineProperty() {
   var osccred = document.createElement("div");
   osccred.innerHTML =
@@ -330,11 +341,19 @@ addEventTo.addEventListener("input", (e) => {
 });
 
 //function to add event to eventsArr
-addEventSubmit.addEventListener("click", () => {
+addEventSubmit.addEventListener("click", async () => {
   const eventTitle = addEventTitle.value;
+  const eventTask = addEventTask.value;
+  const eventPriority = addEventPriority.value;
   const eventTimeFrom = addEventFrom.value;
   const eventTimeTo = addEventTo.value;
-  if (eventTitle === "" || eventTimeFrom === "" || eventTimeTo === "") {
+
+  if (eventTitle === "" ||
+      eventTimeFrom === "" ||
+      eventTimeTo === "" ||
+      eventTask === "" ||
+      eventPriority === ""
+  ) {
     alert("Please fill all the fields");
     return;
   }
@@ -343,27 +362,27 @@ addEventSubmit.addEventListener("click", () => {
   const timeFromArr = eventTimeFrom.split(":");
   const timeToArr = eventTimeTo.split(":");
   if (
-    timeFromArr.length !== 2 ||
-    timeToArr.length !== 2 ||
-    timeFromArr[0] > 23 ||
-    timeFromArr[1] > 59 ||
-    timeToArr[0] > 23 ||
-    timeToArr[1] > 59
+      timeFromArr.length !== 2 ||
+      timeToArr.length !== 2 ||
+      timeFromArr[0] > 23 ||
+      timeFromArr[1] > 59 ||
+      timeToArr[0] > 23 ||
+      timeToArr[1] > 59
   ) {
     alert("Invalid Time Format");
     return;
   }
 
-  const timeFrom = convertTime(eventTimeFrom);
-  const timeTo = convertTime(eventTimeTo);
+  const timeFrom = await convertTime(eventTimeFrom);
+  const timeTo = await convertTime(eventTimeTo);
 
   //check if event is already added
   let eventExist = false;
   eventsArr.forEach((event) => {
     if (
-      event.day === activeDay &&
-      event.month === month + 1 &&
-      event.year === year
+        event.day === activeDay &&
+        event.month === month + 1 &&
+        event.year === year
     ) {
       event.events.forEach((event) => {
         if (event.title === eventTitle) {
@@ -378,36 +397,48 @@ addEventSubmit.addEventListener("click", () => {
   }
   const newEvent = {
     title: eventTitle,
+    task: eventTask,
+    priority: eventPriority,
     time: timeFrom + " - " + timeTo,
   };
-  console.log(newEvent);
-  console.log(activeDay);
+  // console.log(newEvent);
+  // console.log(activeDay);
   let eventAdded = false;
   if (eventsArr.length > 0) {
     eventsArr.forEach((item) => {
       if (
-        item.day === activeDay &&
-        item.month === month + 1 &&
-        item.year === year
+          item.day === activeDay &&
+          item.month === month + 1 &&
+          item.year === year
       ) {
         item.events.push(newEvent);
         eventAdded = true;
       }
     });
   }
-
+  let inputForWhoAssignedTask = getSelectedUser("calendar_user__access");
   if (!eventAdded) {
     eventsArr.push({
+      who_assigned: inputCurrentUser.value,
+      for_who_assigned: inputForWhoAssignedTask,
       day: activeDay,
       month: month + 1,
       year: year,
       events: [newEvent],
+      time_from: timeFrom,
+      time_to: timeTo,
     });
   }
 
-  console.log(eventsArr);
+  let cleaned_events = await converting_event_obj(eventsArr, eventTitle, eventTask, eventPriority)
+
+  // console.log(cloneEventsArrForRequest)
+  await add_task_to_calendar(cleaned_events)
+
   addEventWrapper.classList.remove("active");
   addEventTitle.value = "";
+  addEventTask.value = "";
+  addEventPriority.value = "";
   addEventFrom.value = "";
   addEventTo.value = "";
   updateEvents(activeDay);
@@ -464,7 +495,7 @@ function getEvents() {
   eventsArr.push(...JSON.parse(localStorage.getItem("events")));
 }
 
-function convertTime(time) {
+async function convertTime(time) {
   //convert time to 24 hour format
   let timeArr = time.split(":");
   let timeHour = timeArr[0];

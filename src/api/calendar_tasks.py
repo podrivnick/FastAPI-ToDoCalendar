@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from typing import Annotated
 
-from configs.config_api import EQUAL_TOKENS, ADDED_ACCESS_TO_OTHER_CALENDAR_USER
-from schemas.calendar import CalendarAccessSchema
+from configs.config_api import EQUAL_TOKENS, ADDED_ACCESS_TO_OTHER_CALENDAR_USER, ADDED_TASKS_TO_CALENDAR
+from schemas.calendar import CalendarAccessSchema, AddCalendarSchema
 from schemas.users import UserTokenSchema
 from services.calendar_access import CalendarAccessService
 from services.user_services import UserService
@@ -45,4 +45,13 @@ async def get_calendar(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=EQUAL_TOKENS
         )
+
+
+@router.post("/add_tasks")
+async def add_tasks(
+    data: AddCalendarSchema,
+    user: User = Depends(current_user)
+):
+    print(data)
+    return {"message": ADDED_TASKS_TO_CALENDAR}
 

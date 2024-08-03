@@ -9,7 +9,7 @@ APP_CONTAINER = main-app
 INTO_BASH_FOR_MIGRATE = /bin/bash -c
 INTO_BASH = /bin/bash
 CD_SRC = cd src &&
-RUN_MIGRATION = poetry run alembic upgrade ed4de6d9e9af
+RUN_MIGRATION = poetry run alembic upgrade 8fc7334e3739
 
 .PHONY: storages
 storages:

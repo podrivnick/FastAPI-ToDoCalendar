@@ -8,6 +8,7 @@ tasks_calendar = Table(
     Column("pk", Integer, primary_key=True, autoincrement=True),
     Column("assigned_from", Integer, ForeignKey('user.id'), nullable=False),
     Column("assigned_to", Integer, ForeignKey('user.id'), nullable=False),
+    Column("title", String(40), nullable=True),
     Column("task", String(128), nullable=False),
     Column("priority", Integer, nullable=False, default=3),
     Column("start_date", DateTime, nullable=False),
