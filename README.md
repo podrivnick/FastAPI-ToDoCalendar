@@ -72,10 +72,17 @@ ToDoProject/
         ├── database/              # Database module
         │   ├── __init__.py
         │   ├── database.py
-        ├── repositories/
+        ├── repositories/           # Merge models and abstract methods
         │   ├── calendar_access.py
+        │   ├── user_repository.py
+        ├── exceptions/              # Custom exceptions
+        │   ├── models_exceptions.py
+        │   ├── tokens_error.py
+        ├── configs/              # Configs for exceptions and API
+        │   ├── config_api.py
+        │   ├── config_exceptions.py
         ├── services/              # Services and business logic
-        │   ├── calendar_access.py
+        │   ├── calendar.py
         │   ├── cookies_auth.py
         ├── schemas/               # Schemas to Models
         │   ├── calendar.py
@@ -84,7 +91,8 @@ ToDoProject/
         │   ├── __init__.py
         │   ├── calendar.py
         │   ├── users.py
-        ├── utils/
+        ├── utils/                 # Applied methods ( filters, insert )
+        │   ├── check_token.py               
         │   ├── filtering_user.py
         │   ├── repository.py 
         │   ├── manager.py         # Manager Authentication

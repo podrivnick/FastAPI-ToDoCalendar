@@ -9,7 +9,7 @@ from config import DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOS
 
 from database.database import metadata, Base
 
-from models.calendar import tasks_calendar
+from models.calendar import TaskCalendar
 from models.users import role, User
 
 

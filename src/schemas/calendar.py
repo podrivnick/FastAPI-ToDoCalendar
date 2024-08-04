@@ -15,11 +15,11 @@ class CalendarSchema(BaseModel):
 
 
 class AddCalendarSchema(BaseModel):
-    who_assigned: str
-    for_who_assigned: str
+    assigned_from: str
+    assigned_to: str
     title: str
     task: str
-    priority: str
+    priority: int
     start_date: datetime
     due_date: datetime
 

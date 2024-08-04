@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
-
 from sqlalchemy import insert, select
 
+from sqlalchemy.exc import NoResultFound
 from configs.config_exceptions import USER_ALREADY_RELATED_WITH_CURRENT_USER
 from database.database import async_session_maker
 from exceptions.models_exceptions import NotFoundDataInModelByFilter, ModelsException

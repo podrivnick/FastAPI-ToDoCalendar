@@ -5,8 +5,8 @@ async function converting_event_obj(
         eventPriority,
     )
 {
-
-    let cloneEventsArrForRequest = await JSON.parse(JSON.stringify(eventsArr))
+    // clone object, which contains events data
+    let cloneEventsArrForRequest = await JSON.parse(JSON.stringify(events_obj))
 
     await cloneEventsArrForRequest.forEach(obj => {
         delete obj.events
@@ -19,7 +19,14 @@ async function converting_event_obj(
         task: eventTask,
         priority: eventPriority,
     };
+    let num_priority = Number(cleaned_events.priority);
 
+    if (isNaN(num_priority)) {
+        throw new Error('Не удалось преобразовать значение в число');
+    }
+
+    cleaned_events.priority = num_priority;
+    // format time to ISO format
     const start_date = await
         formatDateTime
         (

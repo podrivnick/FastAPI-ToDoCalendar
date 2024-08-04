@@ -1,6 +1,6 @@
 from repositories.calendar_access import CalendarAccessRepository
-from services.calendar_access import CalendarAccessService
+from services.calendar import CalendarService
 
 
 def calendar_access_dependency():
-    return CalendarAccessService(CalendarAccessRepository)
+    return CalendarService(CalendarAccessRepository)

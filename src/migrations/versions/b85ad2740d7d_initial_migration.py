@@ -1,8 +1,8 @@
 """initial migration
 
-Revision ID: 8fc7334e3739
+Revision ID: b85ad2740d7d
 Revises: 
-Create Date: 2024-08-03 14:40:40.684387
+Create Date: 2024-08-04 20:09:06.727956
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '8fc7334e3739'
+revision: str = 'b85ad2740d7d'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -53,17 +53,17 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('tasks_calendar',
-    sa.Column('pk', sa.Integer(), autoincrement=True, nullable=False),
-    sa.Column('assigned_from', sa.Integer(), nullable=False),
-    sa.Column('assigned_to', sa.Integer(), nullable=False),
-    sa.Column('title', sa.String(length=40), nullable=True),
+    sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
+    sa.Column('assigned_from', sa.String(), nullable=False),
+    sa.Column('assigned_to', sa.String(), nullable=False),
+    sa.Column('title', sa.String(length=40), nullable=False),
     sa.Column('task', sa.String(length=128), nullable=False),
     sa.Column('priority', sa.Integer(), nullable=False),
-    sa.Column('start_date', sa.DateTime(), nullable=False),
-    sa.Column('due_date', sa.DateTime(), nullable=False),
-    sa.ForeignKeyConstraint(['assigned_from'], ['user.id'], ),
-    sa.ForeignKeyConstraint(['assigned_to'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('pk')
+    sa.Column('start_date', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('due_date', sa.DateTime(timezone=True), nullable=False),
+    sa.ForeignKeyConstraint(['assigned_from'], ['user.username'], ),
+    sa.ForeignKeyConstraint(['assigned_to'], ['user.username'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.execute("""
     INSERT INTO role (id, name, permissions) VALUES

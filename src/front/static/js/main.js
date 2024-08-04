@@ -419,8 +419,8 @@ addEventSubmit.addEventListener("click", async () => {
   let inputForWhoAssignedTask = getSelectedUser("calendar_user__access");
   if (!eventAdded) {
     eventsArr.push({
-      who_assigned: inputCurrentUser.value,
-      for_who_assigned: inputForWhoAssignedTask,
+      assigned_from: inputCurrentUser.value,
+      assigned_to: inputForWhoAssignedTask,
       day: activeDay,
       month: month + 1,
       year: year,

@@ -9,7 +9,8 @@ APP_CONTAINER = main-app
 INTO_BASH_FOR_MIGRATE = /bin/bash -c
 INTO_BASH = /bin/bash
 CD_SRC = cd src &&
-RUN_MIGRATION = poetry run alembic upgrade 8fc7334e3739
+RUN_MIGRATION = poetry run alembic upgrade b85ad2740d7d
+ENTER_POSTGRES_CONTAINER = psql -U postgres -d calendar
 
 .PHONY: storages
 storages:
@@ -42,3 +43,7 @@ migrate:
 .PHONY: appbash
 appbash:
 	${EXEC} ${APP_CONTAINER} ${INTO_BASH}
+
+.PHONY: dbbash
+dbbash:
+	${EXEC} ${DB_CONTAINER} ${ENTER_POSTGRES_CONTAINER}
