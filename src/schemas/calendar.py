@@ -24,6 +24,13 @@ class AddCalendarSchema(BaseModel):
     due_date: datetime
 
 
+class DeleteCalendarSchema(BaseModel):
+    assigned_from: str
+    assigned_to: str
+    start_date: datetime
+    due_date: datetime
+
+
 class CalendarAccessSchema(BaseModel):
     user_id: int
     accessible_user_id: int

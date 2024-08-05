@@ -28,12 +28,6 @@ wait_for_port() {
 # Ожидание доступности PostgreSQL
 wait_for_port "postgres" 5432
 
-
-# Выполнение миграций Alembic
-#echo "Выполнение миграций Alembic..."
-#cd /src
-#exec poetry run alembic upgrade a97a51510331
-
 # Запуск Django-приложения (или другого приложения)
 echo "Запуск приложения..."
 exec poetry run python src/app.py

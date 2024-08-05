@@ -1,18 +1,17 @@
-async function add_task_to_calendar(events) {
-    const jsonAddTaskData = JSON.stringify(events)
+async function delete_task_from_calendar(events) {
 
-
+    console.log(events)
     try {
-        const response = await fetch(API_ADD_TASK, {
+        const response = await fetch(API_DELETE_TASK, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: jsonAddTaskData,
+            body: events,
         })
         .then(response => response.json())
             .then(data => {
-                localStorage.setItem("events", JSON.stringify(data));
+                console.log(data)
             })
     } catch (error) {
         console.error('Error:', error);

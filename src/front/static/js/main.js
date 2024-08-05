@@ -60,7 +60,6 @@ const months = [
 
 const eventsArr = [];
 getEvents();
-console.log(eventsArr);
 
 //function to add days in days with class day and prev-date next-date on previous month and next month days and active on today
 function initCalendar() {
@@ -149,7 +148,7 @@ initCalendar();
 function addListner() {
   const days = document.querySelectorAll(".day");
   days.forEach((day) => {
-    day.addEventListener("click", (e) => {
+    day.addEventListener("click",(e) => {
       getActiveDay(e.target.innerHTML);
       updateEvents(Number(e.target.innerHTML));
       activeDay = Number(e.target.innerHTML);
@@ -429,10 +428,8 @@ addEventSubmit.addEventListener("click", async () => {
       time_to: timeTo,
     });
   }
-
   let cleaned_events = await converting_event_obj(eventsArr, eventTitle, eventTask, eventPriority)
 
-  // console.log(cloneEventsArrForRequest)
   await add_task_to_calendar(cleaned_events)
 
   addEventWrapper.classList.remove("active");
@@ -450,16 +447,19 @@ addEventSubmit.addEventListener("click", async () => {
 });
 
 //function to delete event when clicked on event
-eventsContainer.addEventListener("click", (e) => {
+eventsContainer.addEventListener("click", async (e) => {
   if (e.target.classList.contains("event")) {
     if (confirm("Are you sure you want to delete this event?")) {
       const eventTitle = e.target.children[0].children[1].innerHTML;
+      let event_obj_foreach = null
       eventsArr.forEach((event) => {
         if (
           event.day === activeDay &&
           event.month === month + 1 &&
           event.year === year
         ) {
+          event_obj_foreach = event
+
           event.events.forEach((item, index) => {
             if (item.title === eventTitle) {
               event.events.splice(index, 1);
@@ -476,6 +476,14 @@ eventsContainer.addEventListener("click", (e) => {
           }
         }
       });
+      if (event_obj_foreach) {
+        let format_event = await converting_event_delete(event_obj_foreach)
+        if (format_event) {
+          await delete_task_from_calendar(format_event)
+          console.log(format_event)
+        }
+      }
+
       updateEvents(activeDay);
     }
   }

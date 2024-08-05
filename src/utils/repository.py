@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from sqlalchemy import insert, select
 
-from sqlalchemy.exc import NoResultFound
 from configs.config_exceptions import USER_ALREADY_RELATED_WITH_CURRENT_USER
 from database.database import async_session_maker
 from exceptions.models_exceptions import NotFoundDataInModelByFilter, ModelsException
@@ -16,23 +15,27 @@ class AbstractRepository(ABC):
     async def filter_model(self):
         raise NotImplementedError
 
+    @abstractmethod
+    async def delete_one(self):
+        raise NotImplementedError
+
 
 class SQLAlchemyRepository(AbstractRepository):
     model = None
 
-    async def add_one(self, new_access_user: dict) -> int:
+    async def add_one(self, new_data: dict) -> dict:
         try:
-            existing_entry = await self.filter_model(new_access_user)
+            existing_entry = await self.filter_model(new_data)
 
             raise ValueError(USER_ALREADY_RELATED_WITH_CURRENT_USER)
 
         except ModelsException:
             async with async_session_maker() as session:
-                stmt = insert(self.model).values(**new_access_user).returning(self.model.id)
+                stmt = insert(self.model).values(**new_data).returning(self.model.id)
                 res = await session.execute(stmt)
                 await session.commit()
 
-                return res.scalar_one()
+                return new_data
 
     async def filter_model(self, filtering_data: dict):
         async with async_session_maker() as session:
@@ -44,3 +47,14 @@ class SQLAlchemyRepository(AbstractRepository):
                 raise NotFoundDataInModelByFilter()
 
             return obj
+
+    async def delete_one(self, deleting_data: dict):
+        try:
+            existing_obj_in_db = await self.filter_model(deleting_data)
+
+            async with async_session_maker() as session:
+                await session.delete(existing_obj_in_db)
+                await session.commit()
+            return f'Deleted {existing_obj_in_db}'
+        except ModelsException as error:
+            print(error.message)

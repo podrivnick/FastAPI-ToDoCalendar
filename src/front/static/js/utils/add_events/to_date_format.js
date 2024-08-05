@@ -1,6 +1,6 @@
 async function formatDateTime(date, time, month, year) {
   const formattedMonth = month.toString().padStart(2, '0');
-  const formattedDate = date.toString().padStart(2, '0');
+  const formattedDate =  date.toString().padStart(2, '0');
 
   // Разбираем время
   const [hours, minutes, period] = await time.split(/[:\s]/);
@@ -17,7 +17,7 @@ async function formatDateTime(date, time, month, year) {
   const formattedTime = `${year}-${formattedMonth}-${formattedDate}T${formattedHours.toString().padStart(2, '0')}:${minutes.padStart(2, '0')}:00`;
 
   // Проверяем корректность формата даты
-  const dateObj = new Date(formattedTime);
+  const dateObj = await new Date(formattedTime);
   if (isNaN(dateObj.getTime())) {
     throw new RangeError('Invalid date or time value');
   }
