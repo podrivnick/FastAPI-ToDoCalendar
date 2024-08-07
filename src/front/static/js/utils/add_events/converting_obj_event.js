@@ -27,6 +27,12 @@ async function converting_event_obj(
 
     cleaned_events.priority = num_priority;
     // format time to ISO format
+    console.log(
+            cleaned_events.day,
+            cleaned_events.time_from,
+            cleaned_events.month,
+            cleaned_events.year,
+    )
     const start_date = await
         formatDateTime
         (

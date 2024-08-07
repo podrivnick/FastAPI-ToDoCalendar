@@ -26,7 +26,7 @@ class TaskCalendar(Base):
             "title": self.title,
             "task": self.task,
             "priority": self.priority,
-            "start_date": self.start_date,
-            "due_date": self.due_date,
+            "start_date": str(self.start_date),
+            "due_date": str(self.due_date),
         }
 

@@ -36,3 +36,6 @@ class CalendarAccessSchema(BaseModel):
     accessible_user_id: int
 
 
+class CalendarAssignedForSchema(BaseModel):
+    assigned_to: str
+

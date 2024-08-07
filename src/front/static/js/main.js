@@ -451,7 +451,10 @@ eventsContainer.addEventListener("click", async (e) => {
   if (e.target.classList.contains("event")) {
     if (confirm("Are you sure you want to delete this event?")) {
       const eventTitle = e.target.children[0].children[1].innerHTML;
+      const eventTime = e.target.children[1].children[0].innerHTML;
+
       let event_obj_foreach = null
+
       eventsArr.forEach((event) => {
         if (
           event.day === activeDay &&
@@ -459,7 +462,7 @@ eventsContainer.addEventListener("click", async (e) => {
           event.year === year
         ) {
           event_obj_foreach = event
-
+          // console.log(event)
           event.events.forEach((item, index) => {
             if (item.title === eventTitle) {
               event.events.splice(index, 1);
@@ -477,7 +480,12 @@ eventsContainer.addEventListener("click", async (e) => {
         }
       });
       if (event_obj_foreach) {
-        let format_event = await converting_event_delete(event_obj_foreach)
+        // const timeFrom = await convertTime(eventTimeFrom);
+        // const timeTo = await convertTime(eventTimeTo);
+        let time = splitTimeRange(eventTime)
+
+
+        let format_event = await converting_event_delete(event_obj_foreach, time)
         if (format_event) {
           await delete_task_from_calendar(format_event)
           console.log(format_event)

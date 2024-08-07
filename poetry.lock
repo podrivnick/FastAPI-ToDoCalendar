@@ -452,23 +452,6 @@ typer = ">=0.12.3"
 standard = ["fastapi", "uvicorn[standard] (>=0.15.0)"]
 
 [[package]]
-name = "fastapi-csrf-protect"
-version = "0.3.4"
-description = "Stateless implementation of Cross-Site Request Forgery (XSRF) Protection by using Double Submit Cookie mitigation pattern"
-optional = false
-python-versions = "<4.0,>=3.8"
-files = [
-    {file = "fastapi_csrf_protect-0.3.4-py3-none-any.whl", hash = "sha256:78ee1d5bcdc10d06f0516fa8ed9e00b4fa8c8dfa8e93bada6ede7a7bba7507ae"},
-    {file = "fastapi_csrf_protect-0.3.4.tar.gz", hash = "sha256:a7d170d4e119c22bae8a4f5922529767f4d69c4c69744865c03f939e399e5822"},
-]
-
-[package.dependencies]
-fastapi = ">=0,<1"
-itsdangerous = ">=2.0.1,<3.0.0"
-pydantic = ">=2.0.0,<3.0.0"
-pydantic-settings = ">=2.0.0,<3.0.0"
-
-[[package]]
 name = "fastapi-users"
 version = "13.0.0"
 description = "Ready-to-use and customizable users management for FastAPI"
@@ -693,17 +676,6 @@ python-versions = ">=3.5"
 files = [
     {file = "idna-3.7-py3-none-any.whl", hash = "sha256:82fee1fc78add43492d3a1898bfa6d8a904cc97d8427f683ed8e798d07761aa0"},
     {file = "idna-3.7.tar.gz", hash = "sha256:028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"},
-]
-
-[[package]]
-name = "itsdangerous"
-version = "2.2.0"
-description = "Safely pass data to untrusted environments and back."
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "itsdangerous-2.2.0-py3-none-any.whl", hash = "sha256:c6242fc49e35958c8b15141343aa660db5fc54d4f13a1db01a3f5891b98700ef"},
-    {file = "itsdangerous-2.2.0.tar.gz", hash = "sha256:e0050c0b7da1eea53ffaf149c0cfbb5c6e2e2b69c4bef22c81fa6eb73e5f6173"},
 ]
 
 [[package]]
@@ -1009,25 +981,6 @@ files = [
 
 [package.dependencies]
 typing-extensions = ">=4.6.0,<4.7.0 || >4.7.0"
-
-[[package]]
-name = "pydantic-settings"
-version = "2.3.4"
-description = "Settings management using Pydantic"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "pydantic_settings-2.3.4-py3-none-any.whl", hash = "sha256:11ad8bacb68a045f00e4f862c7a718c8a9ec766aa8fd4c32e39a0594b207b53a"},
-    {file = "pydantic_settings-2.3.4.tar.gz", hash = "sha256:c5802e3d62b78e82522319bbc9b8f8ffb28ad1c988a99311d04f2a6051fca0a7"},
-]
-
-[package.dependencies]
-pydantic = ">=2.7.0"
-python-dotenv = ">=0.21.0"
-
-[package.extras]
-toml = ["tomli (>=2.0.1)"]
-yaml = ["pyyaml (>=6.0.1)"]
 
 [[package]]
 name = "pygments"
@@ -1563,4 +1516,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "92fc52a64ef91cd2ae00f162a2647aee33a0fea7ff442772b76436d7f23c40d6"
+content-hash = "137a7b40a22cda5a4966c253da460c8b69fb2ed345f6c7577f3b00a5c39fae2d"

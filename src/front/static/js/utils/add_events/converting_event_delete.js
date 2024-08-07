@@ -1,17 +1,29 @@
 async function converting_event_delete(
-        events_obj
+        events_obj,
+        time = false
     )
 {
     // clone object, which contains events data
     let cloneEventsArrForRequest = await JSON.parse(JSON.stringify(events_obj))
-    delete cloneEventsArrForRequest.events
+    // delete cloneEventsArrForRequest.events
 
+    console.log(
+        time['timeFrom'],
+        time['timeTo'],
+    )
+    if (time) {
+        cloneEventsArrForRequest['timeFrom'] = time['timeFrom'];
+        cloneEventsArrForRequest['timeTo'] = time['timeTo'];
+    }
+
+
+    console.log(cloneEventsArrForRequest)
     // format time to ISO format
     const start_date = await
         formatDateTime
         (
             cloneEventsArrForRequest.day,
-            cloneEventsArrForRequest.time_from,
+            cloneEventsArrForRequest.timeFrom,
             cloneEventsArrForRequest.month,
             cloneEventsArrForRequest.year,
         )
@@ -19,15 +31,15 @@ async function converting_event_delete(
         formatDateTime
         (
             cloneEventsArrForRequest.day,
-            cloneEventsArrForRequest.time_to,
+            cloneEventsArrForRequest.timeTo,
             cloneEventsArrForRequest.month,
             cloneEventsArrForRequest.year,
         )
 
 
     delete cloneEventsArrForRequest.day
-    delete cloneEventsArrForRequest.time_to
-    delete cloneEventsArrForRequest.time_from
+    delete cloneEventsArrForRequest.timeTo
+    delete cloneEventsArrForRequest.timeFrom
     delete cloneEventsArrForRequest.month
     delete cloneEventsArrForRequest.year
 

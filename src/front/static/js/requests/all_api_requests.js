@@ -1,4 +1,5 @@
 // Requests to API
+const API_PAGE = "/page";
 const API_ADD_CALENDAR = "/connect_calendar/add_token";
 const API_LOGOUT = "/login/jwt/logout";
 const API_LOGIN = "/login/jwt/login";

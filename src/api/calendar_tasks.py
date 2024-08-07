@@ -35,7 +35,7 @@ async def connect_to_other_calendars(
 
     if is_not_token_current_user_equal_request_token:
         user_token_schema = UserTokenSchema(token=user_token)
-        user_with_equal_token = await user_repo.filter_by_token(user_token_schema)
+        user_with_equal_token = await user_repo.filter_by_some_data_of_user(user_token_schema)
 
         calendar_access_schemas = CalendarAccessSchema(user_id=user.id, accessible_user_id=user_with_equal_token.id)
         add_access_to_calendar = await calendar_access.insert_data_to_calendar(calendar_access_schemas)

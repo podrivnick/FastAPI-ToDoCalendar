@@ -24,3 +24,18 @@ async function formatDateTime(date, time, month, year) {
 
   return dateObj.toISOString();
 }
+
+
+function splitTimeRange(timeRange) {
+    const delimiter = ' - ';
+    const times = timeRange.split(delimiter);
+
+    if (times.length !== 2) {
+        throw new Error("Invalid time range format");
+    }
+
+    const timeFrom = times[0].trim();
+    const timeTo = times[1].trim();
+
+    return { timeFrom, timeTo };
+}

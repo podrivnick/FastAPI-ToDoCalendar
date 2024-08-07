@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from sqlalchemy import insert, select
+from typing import Any, Dict
 
 from configs.config_exceptions import USER_ALREADY_RELATED_WITH_CURRENT_USER
 from database.database import async_session_maker
@@ -37,16 +38,21 @@ class SQLAlchemyRepository(AbstractRepository):
 
                 return new_data
 
-    async def filter_model(self, filtering_data: dict):
+    async def filter_model(self, filtering_data: Dict[str, Any], find_all_in__tables: bool = False):
         async with async_session_maker() as session:
             stmt = select(self.model).filter_by(**filtering_data)
             result = await session.execute(stmt)
-            obj = result.scalars().first()
+
+            if find_all_in__tables:
+                obj = result.scalars().all()
+                read_models = [item.read_model() for item in obj]
+            else:
+                obj = result.scalars().first()
 
             if not obj:
                 raise NotFoundDataInModelByFilter()
 
-            return obj
+            return read_models if find_all_in__tables else obj
 
     async def delete_one(self, deleting_data: dict):
         try:

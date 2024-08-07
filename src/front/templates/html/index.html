@@ -216,6 +216,26 @@
     </button>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', (e) => {
+            let existingData = localStorage.getItem('events');
+            let dataArray = existingData ? JSON.parse(existingData) : [];
+
+            const events = {{events | tojson}};
+            events.forEach(task => {
+                let new_task = transformDataBack(task);
+                // Проверяем, существует ли уже задача с таким же id
+                let exists = dataArray.some(existingTask => existingTask.id === new_task.id);
+
+                if (!exists) {
+                    dataArray.push(new_task);
+                }
+            });
+
+            localStorage.setItem('events', JSON.stringify(dataArray));
+        });
+    </script>
+
     <script src="{{ url_for('static', path='js/main.js') }}"></script>
     <script src="{{ url_for('static', path='js/index.js') }}"></script>
     <script src="{{ url_for('static', path='js/modal_popup.js') }}"></script>
@@ -228,6 +248,7 @@
     <script src="{{ url_for('static', path='js/utils/show_message.js') }}"></script>
     <script src="{{ url_for('static', path='js/utils/find_checked_user.js') }}"></script>
     <script src="{{ url_for('static', path='js/utils/validate.js') }}"></script>
+    <script src="{{ url_for('static', path='js/utils/format_event_localstorage.js') }}"></script>
     <script src="{{ url_for('static', path='js/utils/close_modal_popup.js') }}"></script>
     <script src="{{ url_for('static', path='js/utils/add_events/to_date_format.js') }}"></script>
     <script src="{{ url_for('static', path='js/utils/add_events/converting_event_delete.js') }}"></script>
